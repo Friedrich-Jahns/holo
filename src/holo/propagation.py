@@ -34,3 +34,4 @@ def propagate(field,z):
     field.data = np.fft.ifft2(np.fft.ifftshift(propagated))
     field.z += z
     return field
+

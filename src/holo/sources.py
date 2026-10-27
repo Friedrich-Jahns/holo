@@ -18,3 +18,22 @@ def  Gaussian_illumination(shape=(512,512),U_0=1,sigma=3e-3,dx=1e-2/512,dy=1e-2/
         dy = dy,
         z  =z
     )
+
+def Custom_illumination(data, shape=(512,512),dx=1e-2/512,dy=1e-2/512,wavelength=532e-9,z=0,padding=False):
+    data = np.array(data) / 255.0
+    
+    if padding:
+        data = np.pad(
+            data,
+            pad_width=((data.shape[0]//2, data.shape[0]//2), (data.shape[1]//2, data.shape[1]//2)),
+            mode="constant",
+            constant_values=0
+        )
+    
+    return field(
+        data = data.astype(complex),
+        wavelength = wavelength,
+        dx = dx,
+        dy = dy,
+        z  =z
+    )

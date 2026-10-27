@@ -17,6 +17,14 @@ def aperture(field, r=1e-3):
     field.data *=mask
     return field
 
+def aperture_inverse(field, r=1e-3):
+    X,Y = grid(field)
+
+    mask = X**2+Y**2 >=r**2
+
+    field.data *=mask
+    return field
+
 
 def lens(field, focal_length=53.2e-3):
     X,Y = grid(field)
@@ -28,5 +36,13 @@ def lens(field, focal_length=53.2e-3):
     field.data *= lens
     return field
     
+def Sphere(field,z_c,x_c=0,y_c=0, r=1e-3):
     
+    X,Y = grid(field)
+
+    a_square = r**2-(field.z-z_c)**2
+    mask = (X-x_c)**2+(Y-y_c)**2 >=a_square
+
+    field.data *=mask
+    return field,mask
 
